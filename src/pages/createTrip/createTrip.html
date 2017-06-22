@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-navbar color="bloodmoon1" no-border-bottom>
+      <ion-title>Buat Trip Baru</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div>
+    <div *ngIf="noInput" padding>
+        <p color="danger">Terjadi kesalahan: Mohon isikan field yang masih kosong!</p>
+    </div>
+    <ion-item>
+      <ion-input [(ngModel)]="tripname" type="text" placeholder="Nama Trip" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="asal" type="text" placeholder="Tempat Memulai Perjalanan" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="tujuan" type="text" placeholder="Tempat Mengakhiri Perjalanan" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="tanggal" type="date" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea [(ngModel)]="detail" placeholder="Isi Detai Perjalanan" rows="15"></ion-textarea>
+    </ion-item>
+  </div>
+  <br>
+  <div text-center>
+    <button ion-button (click)="kirim()">Kirim</button>
+  </div>
+
+</ion-content>

@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+<ion-list>
+  <ion-item *ngFor="let item of items">
+    {{ item }}
+  </ion-item>
+</ion-list>
+
+  <ion-card (click)="goToPost()" >
+  <img src="assets/img/jepang.jpg"/>
+  <ion-card-content>
+    <ion-card-title>
+      OPEN TRIP KE JEPANG MULAI TANGGAL 27 MEI 2018
+      </ion-card-title>
+    <p>
+      The most popular industrial group ever, and largely
+      responsible for bringing the music to a mass audience.
+    </p>
+   <!-- <button ion-button full (click)="goToPost()"> Lihat Selengkapnya </button>-->
+  </ion-card-content>
+</ion-card>
+
+<ion-card (click)="goToPost()" >
+  <img src="assets/img/SALJU.jpg"/>
+  <ion-card-content>
+    <ion-card-title>
+      JALAN-JALAN KE KOREA BARENG OPPA
+      </ion-card-title>
+    <p>
+      The most popular industrial group ever, and largely
+      responsible for bringing the music to a mass audience.
+    </p>
+    
+  </ion-card-content>
+</ion-card>
+  <!--<p> dicoba coba terus sampai berhasil pyar!!!! </p>
+  <button ion-button full (click)="goToChat()"> Ayuk chat </button>-->
+
+
+</ion-content>
