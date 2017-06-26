@@ -1,11 +1,17 @@
 <ion-header>
-    <ion-navbar color="bloodmoon1" no-border-bottom>
+    <ion-navbar color="secondary" no-border-bottom>
       <ion-title>Buat Trip Baru</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <div>
+    <ion-item *ngIf="foto">
+      <img [src]="foto" style="width: 100%; text-align: center;">
+    </ion-item>
+    <div text-center>
+      <button ion-button outline (click)="openGallery()"><ion-icon name="camera"></ion-icon></button>
+    </div>
     <div *ngIf="noInput" padding>
         <p color="danger">Terjadi kesalahan: Mohon isikan field yang masih kosong!</p>
     </div>

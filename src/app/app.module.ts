@@ -19,6 +19,10 @@ import { AuthService } from '../providers/auth-service';
 import {PostDetail} from '../pages/post-detail/post-detail';
 import {ProfilePage} from '../pages/profile-page/profile-page';
 import { AllChat } from '../pages/all-chat/all-chat';
+import { AllComment } from '../pages/all-comment/all-comment';
+import { File } from '@ionic-native/file'
+import { Transfer } from '@ionic-native/transfer'
+import { Camera } from '@ionic-native/camera'
 export const firebaseConfig = {
   apiKey: "AIzaSyDgxo6yYUizMM0bPH9CpTjrGQbhOh4wr4E",
   authDomain: "opentrip-165706.firebaseapp.com",
@@ -40,7 +44,8 @@ export const firebaseConfig = {
     Chats,
     PostDetail,
     ProfilePage,
-    AllChat
+    AllChat,
+    AllComment
   ],
   imports: [
     HttpModule,
@@ -60,11 +65,15 @@ export const firebaseConfig = {
     Chats,
     PostDetail,
     ProfilePage,
-    AllChat
+    AllChat,
+    AllComment
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    File,
+    Transfer,
     StatusBar,
+    Camera,
     SplashScreen,
     NativeStorage,
     Facebook,

@@ -7,26 +7,66 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>OPEN TRIP KE JEPANG</ion-title>
+    <ion-title>{{content.tripname}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-<img src="assets/img/jepang.jpg"/>
-<ion-toolbar color="bloodmoon1" no-border-top>
-    <ion-segment [(ngModel)]="menu" color="light">
-      <ion-segment-button value="Description"  >
-        Description
-      </ion-segment-button>
-      <ion-segment-button  value="Comment" >
-        Comment
-      </ion-segment-button>
-      <ion-segment-button  value="Contact">
-        Contact
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+  <img src="http://localhost:3000/{{content.foto}}"/>
+  <ion-toolbar color="secondary" no-border-top>
+      <ion-segment [(ngModel)]="menu" color="light">
+        <ion-segment-button value="Description"  >
+          Description
+        </ion-segment-button>
+        <ion-segment-button  value="Comment" >
+          Comments
+        </ion-segment-button>
+        <ion-segment-button  value="Contact">
+          Contact
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+    <div [ngSwitch]="menu">
+      <div *ngSwitchCase="'Description'">
+        <p>
+          <strong>Tujuan : </strong>
+          {{content.tujuan}}
+        </p>
+        <p>
+          <strong>Meeting Point : </strong>
+          {{content.asal}}
+        </p>
+        <p>
+          <strong>Tanggal : </strong>
+          {{content.tanggalberangkat}}
+        </p>
+        <p>
+          {{content.detail}}
+        </p>
+      </div>
 
+      <ion-list *ngSwitchCase="'Comment'" no-lines>
+        <button (click)='getallcomment()' ion-button color="gray" clear style="font-size:10px">View all comments</button>
+        <div *ngFor="let item of comments">
+          <ion-item>
+            <p item-left>
+              <strong>{{item.Username}} </strong>
+              {{item.commentcontent}}
+              <span style="font-size:8px" item-right>{{item.tanggal | date: "DD/MM/YY"}}</span>
+            </p>
+          </ion-item>
+        </div>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'Contact'">
+        <ion-item>
+          <ion-thumbnail item-start>
+            <img src="img/thumbnail-kitten-1.jpg">
+          </ion-thumbnail>
+          <h2>Luna</h2>
+        </ion-item>
+        ...
+      </ion-list>
+    </div>
 </ion-content>

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <!-- <ion-input [(ngModel)]="username" placeholder="Username"></ion-input> -->
+      Comments
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list no-lines>
+    <div *ngFor="let data of comments">
+      <ion-item>
+        <p item-left>
+          <strong>{{data.Username}} </strong>
+          {{data.commentcontent}}
+          <span style="font-size:8px" item-right>{{data.tanggal}}</span>
+        </p>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <form #f="ngForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-10>
+          <ion-textarea [(ngModel)]="textcomment" elastic name="Text" required placeholder="type here..."></ion-textarea>
+        </ion-col>
+        <ion-col col-2>
+          <button (click)="commentSend(f.value, f.valid)" ion-button color="light" [disabled]="f.valid === false" icon-only>
+            <ion-icon name="send"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-footer>
