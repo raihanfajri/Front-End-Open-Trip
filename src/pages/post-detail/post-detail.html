@@ -60,13 +60,14 @@
       </ion-list>
 
       <ion-list *ngSwitchCase="'Contact'">
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="img/thumbnail-kitten-1.jpg">
-          </ion-thumbnail>
-          <h2>Luna</h2>
-        </ion-item>
-        ...
+        <div *ngFor="let item of list">
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="img/thumbnail-kitten-1.jpg">
+            </ion-avatar>
+            <h2>Luna</h2>
+          </ion-item>
+        </div>
       </ion-list>
     </div>
 </ion-content>

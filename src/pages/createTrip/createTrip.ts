@@ -16,6 +16,9 @@ export class createTripPage {
   public tujuan: string;
   public tanggal: string;
   public detail: string;
+  public budget = null;
+  public kapasitas = null;
+  public sisa = null;
   public input: any;
   public noInput = false;
   public foto: string;

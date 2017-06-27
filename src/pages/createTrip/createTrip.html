@@ -16,24 +16,33 @@
         <p color="danger">Terjadi kesalahan: Mohon isikan field yang masih kosong!</p>
     </div>
     <ion-item>
-      <ion-input [(ngModel)]="tripname" type="text" placeholder="Nama Trip" required></ion-input>
+      <ion-input [(ngModel)]="tripname" type="text" placeholder="Nama Trip" clearInput required></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input [(ngModel)]="asal" type="text" placeholder="Tempat Memulai Perjalanan" required></ion-input>
+      <ion-input [(ngModel)]="asal" type="text" placeholder="Tempat Memulai Perjalanan" clearInput required></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input [(ngModel)]="tujuan" type="text" placeholder="Tempat Mengakhiri Perjalanan" required></ion-input>
+      <ion-input [(ngModel)]="tujuan" type="text" placeholder="Tempat Mengakhiri Perjalanan" clearInput required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="budget" type="number" placeholder="Perkiraan budget untuk perorang" clearInput required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="kapasitas" type="number" placeholder="Kapasitas maksimum peserta" clearInput required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="sisa" type="number" placeholder="Jumlah orang yang diperlukan" clearInput required></ion-input>
     </ion-item>
     <ion-item>
       <ion-input [(ngModel)]="tanggal" type="date" required></ion-input>
     </ion-item>
     <ion-item>
-      <ion-textarea [(ngModel)]="detail" placeholder="Isi Detai Perjalanan" rows="15"></ion-textarea>
+      <ion-textarea [(ngModel)]="detail" placeholder="Isi Detai Perjalanan" clearInput rows="10"></ion-textarea>
     </ion-item>
   </div>
   <br>
   <div text-center>
-    <button ion-button (click)="kirim()">Kirim</button>
+    <button ion-button (click)="kirim()" disabled="isdisabled">Kirim</button>
   </div>
 
 </ion-content>
