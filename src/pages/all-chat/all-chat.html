@@ -15,12 +15,14 @@
 
 <ion-content>
 <ion-list>
-  <ion-item (click)="goToChat()">
-    <ion-avatar item-left>
-      <img src="assets/img/dede.jpg">
-    </ion-avatar>
-    <h2>Cher</h2>
-    <p>Ugh. As if.</p>
-  </ion-item>
+  <div *ngFor="let item of chats">
+    <ion-item (click)="goToChat()">
+      <ion-avatar item-left>
+        <img src="{{item.user.foto_profil}}">
+      </ion-avatar>
+      <h2>{{item.user.Username}}</h2>
+      <p>{{item.chat}}</p>
+    </ion-item>
+  </div>
 </ion-list>
 </ion-content>

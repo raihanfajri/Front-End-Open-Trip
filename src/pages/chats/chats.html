@@ -13,19 +13,19 @@
       <ion-item *ngIf="username === data.username" style="border-right: solid 5px red;">
         <p class="chat-text" item-left>
           <strong>Me: </strong>
-          {{data.message}}
+          {{data.chat}}
         </p>
-        <p class="chat-time" item-right>
-          {{data.date | date:'hh:mm'}}
+        <p style="color:#bab3ad;font-size:8px" item-right>
+          {{data.tanggal}}
         </p>
       </ion-item>
       <ion-item *ngIf="username !== data.username" style="border-right: solid 5px green;">
-        <p class="chat-time" item-left>
-          {{data.date | date:'hh:mm'}}
+        <p class="chat-text" item-left>
+          <strong>{{data.user.Username}}: </strong>
+          {{data.chat}}
         </p>
-        <p class="chat-text" item-right>
-          <strong>{{data.username}}: </strong>
-          {{data.message}}
+        <p style="color:#bab3ad;font-size:8px" item-right>
+          {{data.tanggal}}
         </p>
       </ion-item>
     </div>

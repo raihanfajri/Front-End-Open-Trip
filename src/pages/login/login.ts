@@ -5,6 +5,7 @@ import { Facebook } from '@ionic-native/facebook'
 import { TabsPage } from '../tabs/tabs'
 import { AuthProviders, AuthMethods, AngularFire, FirebaseListObservable } from 'angularfire2';
 import { MyApp } from '../../app/app.component'
+import { Http,Headers } from '@angular/http';
 /**
  * Generated class for the Login page.
  *
@@ -18,7 +19,7 @@ import { MyApp } from '../../app/app.component'
 })
 export class LoginPage {
   root:any;
-  constructor(public navCtrl: NavController,public af: AngularFire, public element: ElementRef) {
+  constructor(public navCtrl: NavController,public af: AngularFire, public element: ElementRef,public http: Http) {
     this.element.nativeElement;
   }
   ngOnInit(){
@@ -37,7 +38,13 @@ export class LoginPage {
   			email:response.auth.email,
   			picture:response.auth.photoURL
   		};
-  		window.localStorage.setItem('user',JSON.stringify(user));
+      var headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      self.http.post("http://localhost:3000/users/login", user, {headers: headers}).subscribe(data => {
+         let v = data.json();
+         window.localStorage.setItem('user',JSON.stringify(v));
+         console.log("user data changed ");
+      });
       self.navCtrl.setRoot(TabsPage);
       //app.setRootpage(TabsPage);
   	}).catch(function(error){

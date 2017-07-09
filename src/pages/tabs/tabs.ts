@@ -16,11 +16,12 @@ export class TabsPage {
   profilePageTab :any = ProfilePage;
   homeTab: any = HomePage;
   allChatTab: any= AllChat;
-
+  contactTab: any= ContactPage;
+  selected = 1;
   constructor(public navCtrl: NavController) {
 
   }
-
+  
   goToPost(){
     this.navCtrl.push(PostDetail);
   }

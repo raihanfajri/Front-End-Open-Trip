@@ -1,17 +1,37 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="secondary">
     <ion-title>
-      Contact
+      Contacts
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-left></ion-icon>
-      @ionicframework
-    </ion-item>
+  <ion-list no-lines>
+    <ion-list-header>
+      Friends
+    </ion-list-header>
+    <div *ngFor="let contact of contacts">
+      <ion-item (click)="goToChat(contact.user.idUser)">
+        <ion-avatar item-left>
+          <img src="{{contact.user.foto_profil}}">
+        </ion-avatar>
+        <h2>{{contact.user.Username}}</h2>
+        <p>{{contact.user.email}}</p>
+      </ion-item>
+    </div>
+  </ion-list>
+  <ion-list no-lines>
+    <ion-list-header>
+      Groups
+    </ion-list-header>
+    <div *ngFor="let group of groups">
+      <ion-item (click)="goToGroupChat(group.trip.idtrip)">
+        <ion-avatar item-left>
+          <img src="http://localhost:3000/{{group.trip.foto}}">
+        </ion-avatar>
+        <h2>{{group.trip.tripname}}</h2>
+      </ion-item>
+    </div>
   </ion-list>
 </ion-content>

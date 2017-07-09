@@ -39,7 +39,15 @@
         </p>
         <p>
           <strong>Tanggal : </strong>
-          {{content.tanggalberangkat}}
+          {{content.tanggalberangkat | date:'dd-MM-yyyy'}}
+        </p>
+        <p>
+          <strong>Peserta :</strong>
+          {{anggota}}/{{content.kapasitas}} Orang
+        </p>
+        <p>
+          <strong>Budget : </strong>
+          Rp {{content.budget}} /Orang
         </p>
         <p>
           {{content.detail}}
@@ -50,22 +58,25 @@
         <button (click)='getallcomment()' ion-button color="gray" clear style="font-size:10px">View all comments</button>
         <div *ngFor="let item of comments">
           <ion-item>
-            <p item-left>
-              <strong>{{item.Username}} </strong>
+            <h3>
+              <strong>{{item.Username}} <span *ngIf="item.idUser === content.tripadminid" style="color:green">Admin</span></strong>
+              <span style="font-size:8px">{{item.tanggal}}</span>
+            </h3>
+            <p>
               {{item.commentcontent}}
-              <span style="font-size:8px" item-right>{{item.tanggal | date: "DD/MM/YY"}}</span>
             </p>
           </ion-item>
         </div>
       </ion-list>
 
       <ion-list *ngSwitchCase="'Contact'">
-        <div *ngFor="let item of list">
+        <div *ngFor="let member of members">
           <ion-item>
-            <ion-avatar item-start>
-              <img src="img/thumbnail-kitten-1.jpg">
+            <ion-avatar item-left>
+              <img src="{{member.user.foto_profil}}">
             </ion-avatar>
-            <h2>Luna</h2>
+            <h2>{{member.user.Username}}</h2>
+            <p>{{member.user.email}}</p>
           </ion-item>
         </div>
       </ion-list>

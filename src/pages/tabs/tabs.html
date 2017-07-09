@@ -5,10 +5,10 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    
+
     <ion-toolbar secondary color="bloodmoon1">
- 
-      </ion-toolbar> 
+
+      </ion-toolbar>
 </ion-header>
 -->
 <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
@@ -18,8 +18,9 @@
   </ion-item>
 </ion-list>
 
-<ion-tabs primary color="secondary">
+<ion-tabs primary color="secondary" selectedIndex="selected">
   <ion-tab tabTitle= "Home" [root]="homeTab" tabIcon="home"></ion-tab>
-  <ion-tab tabTitle= "Chat" [root]="allChatTab" tabIcon="chatbubbles"> </ion-tab>
+  <ion-tab tabTitle= "Chats" [root]="allChatTab" tabIcon="chatbubbles"> </ion-tab>
+  <ion-tab tabTitle= "Contacts" [root]="contactTab" tabIcon="contacts"> </ion-tab>
   <ion-tab tabTitle= "Profil" [root]="profilePageTab" tabIcon="person"> </ion-tab>
 </ion-tabs>

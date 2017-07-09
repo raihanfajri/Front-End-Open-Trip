@@ -16,15 +16,14 @@ import { AllChat } from '../pages/all-chat/all-chat'
   templateUrl: `app.html`
 })
 export class MyApp {
- 
+
   @ViewChild(Nav) nav: Nav;
   rootPage: any;
-  
+
 
   constructor(platform: Platform, private Splashscreen: SplashScreen, private statusBar: StatusBar) {
     platform.ready().then(() => {
      let env = this;
-     env.nav.push(TabsPage);
      if(!this.isAlreadyLoggedIn()){
        console.log('not login yet, redirect to login page');
        env.nav.setRoot(LoginPage);
@@ -36,8 +35,8 @@ export class MyApp {
      }
       statusBar.styleDefault();
     });
-   
-      
+
+
   }
   isAlreadyLoggedIn(){
     let user = window.localStorage.getItem('user');

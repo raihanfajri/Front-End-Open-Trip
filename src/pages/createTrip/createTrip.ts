@@ -55,7 +55,7 @@ export class createTripPage {
       loading.present();
       var headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      this.input = {tripname : this.tripname, idadmin : this.idadmin, asal : this.asal, tujuan: this.tujuan, tanggal : this.tanggal, detail: this.detail, foto: this.foto};
+      this.input = {tripname : this.tripname, idadmin : this.idadmin, asal : this.asal, tujuan: this.tujuan, tanggal : this.tanggal,kapasitas: this.kapasitas,sisa:this.sisa, budget:this.budget, detail: this.detail, foto: this.foto};
       console.log(this.input);
       this.http.post("http://localhost:3000/trip/createtrip", JSON.stringify(this.input), {headers: headers}).subscribe(data => {
             loading.dismiss();

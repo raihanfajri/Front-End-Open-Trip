@@ -8,13 +8,27 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-list no-lines>
+    <ion-item>
+      <p align="center" style="color:#bab3ad">
+        Pull to add more
+      </p>
+    </ion-item>
     <div *ngFor="let data of comments">
       <ion-item>
-        <p item-left>
-          <strong>{{data.Username}} </strong>
+        <h3>
+          <strong>{{data.Username}} <span *ngIf="data.idUser === idadmin" style="color:green">Admin</span></strong>
+          <span style="font-size:8px">{{data.tanggal}}</span>
+        </h3>
+        <p>
           {{data.commentcontent}}
-          <span style="font-size:8px" item-right>{{data.tanggal}}</span>
         </p>
       </ion-item>
     </div>
