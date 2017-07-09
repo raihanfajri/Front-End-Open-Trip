@@ -10,7 +10,7 @@
 <ion-content>
   <ion-list>
     <div *ngFor="let data of messages">
-      <ion-item *ngIf="username === data.username" style="border-right: solid 5px red;">
+      <ion-item *ngIf="username === data.user.username" style="border-right: solid 5px red;">
         <p class="chat-text" item-left>
           <strong>Me: </strong>
           {{data.chat}}
@@ -19,7 +19,7 @@
           {{data.tanggal}}
         </p>
       </ion-item>
-      <ion-item *ngIf="username !== data.username" style="border-right: solid 5px green;">
+      <ion-item *ngIf="username !== data.user.username" style="border-right: solid 5px green;">
         <p class="chat-text" item-left>
           <strong>{{data.user.Username}}: </strong>
           {{data.chat}}
