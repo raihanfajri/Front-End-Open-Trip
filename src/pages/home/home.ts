@@ -11,6 +11,7 @@ import { DataService } from '../tabs/tabs';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  public host : string;
   public id = 0;
   public judul: string;
   public foto: string;
@@ -22,6 +23,7 @@ export class HomePage {
   public val: string;
   public dataService : any = new DataService;
   constructor(public navCtrl: NavController,public http: Http, public loadingCtrl: LoadingController,public alertCtrl: AlertController) {
+    this.host = this.dataService.getHost();
     this.getallitem(this.limit,this.offset);
   }
   doRefresh(refresher) {

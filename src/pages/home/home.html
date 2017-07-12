@@ -29,7 +29,7 @@
   <div *ngFor="let item of items, let i = index">
     <!-- kirim index item -->
     <ion-card (click)="goToPost(i)" >
-      <img src="http://localhost:3000/{{item.foto}}"/>
+      <img src="{{host}}/{{item.foto}}"/>
       <ion-card-content>
         <ion-card-title>
           {{item.tripname}}
@@ -37,7 +37,7 @@
         <p>
           <strong>Sisa :</strong> {{item.sisa}} Orang
           <br>
-          <strong>Budget : </strong> Rp {{item.budget}} /Orang
+          <strong>Budget : </strong> {{item.budget | currency : "IDR":0}} /Orang
         </p>
         <p>
           {{item.detail}}
