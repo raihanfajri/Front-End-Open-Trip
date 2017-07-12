@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { Http,Headers } from '@angular/http';
 import { Chats } from '../chats/chats';
+import { DataService } from '../tabs/tabs'
 
 @Component({
   selector: 'page-contact',
@@ -11,6 +12,7 @@ export class ContactPage {
   public contacts :any =[];
   public idUser= 0;
   public groups:any =[];
+  public dataService : any=new DataService;
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public http: Http) {
 
   }
@@ -28,7 +30,7 @@ export class ContactPage {
   getallgroup(){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    this.http.get("http://localhost:3000/trip/grouplist/?idUser="+this.idUser, {headers: headers}).subscribe(data => {
+    this.http.get(this.dataService.getHost()+"/trip/grouplist/?idUser="+this.idUser, {headers: headers}).subscribe(data => {
       this.groups = data.json();
     },
       err => {
@@ -43,7 +45,7 @@ export class ContactPage {
   getallcontact(){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    this.http.get("http://localhost:3000/users/contactlist/?idUser="+this.idUser, {headers: headers}).subscribe(data => {
+    this.http.get(this.dataService.getHost()+"/users/contactlist/?idUser="+this.idUser, {headers: headers}).subscribe(data => {
       this.contacts = data.json();
     },
       err => {

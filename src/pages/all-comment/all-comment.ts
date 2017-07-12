@@ -1,6 +1,7 @@
 import { Component, ViewChild, Pipe } from '@angular/core';
 import { NavController, NavParams, AlertController, Content } from 'ionic-angular';
 import { Http,Headers } from '@angular/http';
+import { DataService } from '../tabs/tabs';
 /**
  * Generated class for the Chats page.
  *
@@ -22,6 +23,7 @@ export class AllComment {
   public idUser= 0;
   public idadmin= 0;
   public username: string;
+  public dataService :any = new DataService;
   constructor(public navCtrl: NavController,public http: Http,public navParams: NavParams,public alertCtrl: AlertController) {
     let user = window.localStorage.getItem('user');
     user = JSON.parse(user);
@@ -43,7 +45,7 @@ export class AllComment {
   getpluscomment(limit,offset){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    this.http.get("http://localhost:3000/users/getcomment/?id="+this.idtrip+"&limit="+limit+"&offset="+offset+"&order=desc", {headers: headers}).subscribe(data => {
+    this.http.get(this.dataService.getHost()+"/users/getcomment/?id="+this.idtrip+"&limit="+limit+"&offset="+offset+"&order=desc", {headers: headers}).subscribe(data => {
       let v = data.json();
       v.sort(()=>1);
       if(v.length > 0) this.comments = v.concat(this.comments);
@@ -63,9 +65,10 @@ export class AllComment {
   getallcomment(id,limit){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    this.http.get("http://localhost:3000/users/getcomment/?id="+id+"&limit="+limit+"&order=desc&offset=0", {headers: headers}).subscribe(data => {
+    this.http.get(this.dataService.getHost()+"/users/getcomment/?id="+id+"&limit="+limit+"&order=desc&offset=0", {headers: headers}).subscribe(data => {
       this.comments = data.json();
       this.comments.sort(()=>1);
+      console.log(this.comments)
     },
       err => {
         let alert = this.alertCtrl.create({
@@ -77,19 +80,20 @@ export class AllComment {
       });
   }
   commentSend(v){
-    var input= {
+    var input= JSON.stringify({
       idtrip: this.idtrip,
       idUser: this.idUser,
       commentcontent: v.Text
-    }
+    })
     this.textcomment = '';
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     console.log(input);
-    this.http.post("http://localhost:3000/users/comment/",JSON.stringify(input), {headers: headers}).subscribe(data => {
+    this.http.post(this.dataService.getHost()+"/users/comment/",input, {headers: headers}).subscribe(data => {
       let times = data.json();
       var newcomment = {
-        Username: this.username,
+        idUser:this.idUser,
+        user:{Username: this.username},
         commentcontent: v.Text,
         tanggal: times.time
       };

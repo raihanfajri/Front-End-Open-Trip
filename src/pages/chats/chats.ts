@@ -2,6 +2,7 @@ import { Component, NgZone, ViewChild } from '@angular/core';
 import * as io from 'socket.io-client';
 import { NavController, Content, NavParams } from 'ionic-angular';
 import { Http,Headers } from '@angular/http';
+import { DataService } from '../tabs/tabs';
 /**
  * Generated class for the Chats page.
  *
@@ -25,6 +26,7 @@ export class Chats {
   roomid: string;
   idUser =0;
   istrip =0;
+  dataService :any = new DataService;
   constructor(public navCtrl: NavController,public http: Http,public navParams: NavParams) {
     this.roomid = this.navParams.get('idroom');
     this.istrip = this.navParams.get('istrip');
@@ -54,13 +56,13 @@ export class Chats {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     if(this.istrip == 0)
-    this.http.get("http://localhost:3000/room/getrecentchat/?idroom="+this.roomid, {headers: headers}).subscribe(data => {
+    this.http.get(this.dataService.getHost()+"/room/getrecentchat/?idroom="+this.roomid, {headers: headers}).subscribe(data => {
        let v = data.json();
        this.messages = this.messages.concat(v);
     });
     else {
       var groupid = 'trip'+this.roomid;
-      this.http.get("http://localhost:3000/room/getrecentchat/?idroom="+groupid, {headers: headers}).subscribe(data => {
+      this.http.get(this.dataService.getHost()+"/room/getrecentchat/?idroom="+groupid, {headers: headers}).subscribe(data => {
          let v = data.json();
          this.messages = this.messages.concat(v);
       });

@@ -16,8 +16,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireModule } from 'angularfire2';
 import { AuthService } from '../providers/auth-service';
-import {PostDetail} from '../pages/post-detail/post-detail';
-import {ProfilePage} from '../pages/profile-page/profile-page';
+import { PostDetail } from '../pages/post-detail/post-detail';
+import { ProfilePage } from '../pages/profile-page/profile-page';
+import { SplashPage } from '../pages/splash/splash';
 import { AllChat } from '../pages/all-chat/all-chat';
 import { AllComment } from '../pages/all-comment/all-comment';
 import { File } from '@ionic-native/file'
@@ -27,8 +28,9 @@ export const firebaseConfig = {
   apiKey: "AIzaSyDgxo6yYUizMM0bPH9CpTjrGQbhOh4wr4E",
   authDomain: "opentrip-165706.firebaseapp.com",
   databaseURL: "https://opentrip-165706.firebaseio.com",
+  projectId: "opentrip-165706",
   storageBucket: "opentrip-165706.appspot.com",
-  messagingSenderId: '1050022502444'
+  messagingSenderId: "1050022502444"
 };
 
 
@@ -45,7 +47,8 @@ export const firebaseConfig = {
     PostDetail,
     ProfilePage,
     AllChat,
-    AllComment
+    AllComment,
+    SplashPage
   ],
   imports: [
     HttpModule,
@@ -66,7 +69,8 @@ export const firebaseConfig = {
     PostDetail,
     ProfilePage,
     AllChat,
-    AllComment
+    AllComment,
+    SplashPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

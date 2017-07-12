@@ -24,7 +24,7 @@
     <div *ngFor="let data of comments">
       <ion-item>
         <h3>
-          <strong>{{data.Username}} <span *ngIf="data.idUser === idadmin" style="color:green">Admin</span></strong>
+          <strong>{{data.user.Username}} <span *ngIf="data.idUser === idadmin" style="color:green">Admin</span></strong>
           <span style="font-size:8px">{{data.tanggal}}</span>
         </h3>
         <p>

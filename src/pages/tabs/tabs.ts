@@ -26,3 +26,12 @@ export class TabsPage {
     this.navCtrl.push(PostDetail);
   }
 }
+export class DataService{
+  public host :string = "http://ead16cd9.ngrok.io";
+  constructor(){
+
+  }
+  getHost(){
+    return this.host;
+  }
+}

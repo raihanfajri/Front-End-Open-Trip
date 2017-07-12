@@ -4,6 +4,7 @@ import { Http,Headers } from '@angular/http';
 //import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
 //import { File } from '@ionic-native/file';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { DataService } from '../tabs/tabs';
 
 @Component({
   selector: 'page-createTrip',
@@ -22,6 +23,7 @@ export class createTripPage {
   public input: any;
   public noInput = false;
   public foto: string;
+  public dataService :any = new DataService;
   constructor(private camera: Camera, public http: Http, public navCtrl: NavController,public loadingCtrl: LoadingController,public alertCtrl: AlertController) {
     this.foto = '../assets/img/no-image-icon-11.PNG';
     let user = window.localStorage.getItem('user');
@@ -57,7 +59,7 @@ export class createTripPage {
       headers.append('Content-Type', 'application/json');
       this.input = {tripname : this.tripname, idadmin : this.idadmin, asal : this.asal, tujuan: this.tujuan, tanggal : this.tanggal,kapasitas: this.kapasitas,sisa:this.sisa, budget:this.budget, detail: this.detail, foto: this.foto};
       console.log(this.input);
-      this.http.post("http://localhost:3000/trip/createtrip", JSON.stringify(this.input), {headers: headers}).subscribe(data => {
+      this.http.post(this.dataService.getHost()+"/trip/createtrip", JSON.stringify(this.input), {headers: headers}).subscribe(data => {
             loading.dismiss();
             let alert = this.alertCtrl.create({
               title: 'Your Trip Request Has Been Sent',

@@ -4,7 +4,7 @@ import { Chats } from '../chats/chats';
 import {PostDetail} from '../post-detail/post-detail';
 import { createTripPage } from '../createTrip/createTrip';
 import { Http,Headers } from '@angular/http';
-
+import { DataService } from '../tabs/tabs';
 
 @Component({
   selector: 'page-home',
@@ -20,6 +20,7 @@ export class HomePage {
   public offset = 0;
   public search = false;
   public val: string;
+  public dataService : any = new DataService;
   constructor(public navCtrl: NavController,public http: Http, public loadingCtrl: LoadingController,public alertCtrl: AlertController) {
     this.getallitem(this.limit,this.offset);
   }
@@ -46,7 +47,7 @@ export class HomePage {
   getplusitem(limit,offset){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    this.http.get("http://localhost:3000/trip/semuatrip/?limit="+limit+"&offset="+offset, {headers: headers}).subscribe(data => {
+    this.http.get(this.dataService.getHost()+"/trip/semuatrip/?limit="+limit+"&offset="+offset, {headers: headers}).subscribe(data => {
       this.items = this.items.concat(data.json());
     },
       err => {
@@ -65,7 +66,7 @@ export class HomePage {
     loading.present();
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    this.http.get("http://localhost:3000/trip/semuatrip/?limit="+limit+"&offset="+offset, {headers: headers}).subscribe(data => {
+    this.http.get(this.dataService.getHost()+"/trip/semuatrip/?limit="+limit+"&offset="+offset, {headers: headers}).subscribe(data => {
        this.items = data.json();
        loading.dismiss();
     },
@@ -83,7 +84,7 @@ export class HomePage {
     if (this.val && this.val.trim() != '') {
       var headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      this.http.get("http://localhost:3000/trip/searchtrip/?name="+this.val+"&limit="+limit+"&offset=0"+offset, {headers: headers}).subscribe(data => {
+      this.http.get(this.dataService.getHost()+"/trip/searchtrip/?name="+this.val+"&limit="+limit+"&offset=0"+offset, {headers: headers}).subscribe(data => {
          this.items = this.items.concat(data.json());
       },
         err => {
@@ -104,7 +105,7 @@ export class HomePage {
       this.offset = 0;
       var headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      this.http.get("http://localhost:3000/trip/searchtrip/?name="+this.val+"&limit=4&offset=0", {headers: headers}).subscribe(data => {
+      this.http.get(this.dataService.getHost()+"/trip/searchtrip/?name="+this.val+"&limit=4&offset=0", {headers: headers}).subscribe(data => {
          this.items = data.json();
       },
         err => {
