@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http,Headers } from '@angular/http';
 import { AllComment } from '../all-comment/all-comment';
 import { DataService } from '../tabs/tabs';
+import { HomePage } from '../home/home';
 /**
  * Generated class for the PostDetail page.
  *
@@ -61,6 +62,9 @@ export class PostDetail {
        this.comments.sort(()=>1);
        console.log(this.comments)
     });
+  }
+  goToHome(){
+    this.navCtrl.pop(HomePage);
   }
 
 }
