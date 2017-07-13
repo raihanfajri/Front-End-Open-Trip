@@ -38,7 +38,7 @@ export class LoginPage {
       console.log("login dapet")
   		let reg = {
         name: response.auth.displayName,
-  			mail:response.auth.email,
+  			email:response.auth.email,
   			picture:response.auth.photoURL
   		};
       var headers = new Headers();
