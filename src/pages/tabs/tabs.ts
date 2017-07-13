@@ -27,7 +27,7 @@ export class TabsPage {
   }
 }
 export class DataService{
-  public host :string = "https://002f0805.ngrok.io/";
+  public host :string = "https://002f0805.ngrok.io";
   constructor(){
 
   }
