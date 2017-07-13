@@ -23,8 +23,10 @@ export class PostDetail {
   public anggota = 0;
   public members: any=[];
   public dataService:any = new DataService;
+  public hozt:string
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
     this.content = this.navParams.data;
+    this.hozt = this.dataService.getHost();
     //this.gettripadmin(this.content.tripadminid);
     this.limit = 4;
     this.menu = "Description";
