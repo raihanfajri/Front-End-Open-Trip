@@ -20,6 +20,7 @@ import { PostDetail } from '../pages/post-detail/post-detail';
 import { ProfilePage } from '../pages/profile-page/profile-page';
 import { SplashPage } from '../pages/splash/splash';
 import { AllChat } from '../pages/all-chat/all-chat';
+import {Editpost} from '../pages/editpost/editpost';
 import { AllComment } from '../pages/all-comment/all-comment';
 import { File } from '@ionic-native/file'
 import { Transfer } from '@ionic-native/transfer'
@@ -48,7 +49,8 @@ export const firebaseConfig = {
     ProfilePage,
     AllChat,
     AllComment,
-    SplashPage
+    SplashPage,
+    Editpost
   ],
   imports: [
     HttpModule,
@@ -70,7 +72,8 @@ export const firebaseConfig = {
     ProfilePage,
     AllChat,
     AllComment,
-    SplashPage
+    SplashPage,
+    Editpost
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

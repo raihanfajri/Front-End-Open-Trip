@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-navbar color="secondary" no-border-bottom>
+      <ion-title>Edit Trip</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div>
+    <ion-item *ngIf="foto">
+      <img [src]="foto" style="width: 100%; text-align: center;">
+    </ion-item>
+    <div text-center>
+      <button ion-button outline (click)="openGallery()"><ion-icon name="camera"></ion-icon></button>
+    </div>
+    <div *ngIf="noInput" padding>
+        <p color="danger">Terjadi kesalahan: Mohon isikan field yang masih kosong!</p>
+    </div>
+    <ion-item>
+      <ion-input [(ngModel)]="tripname" type="text" placeholder="Nama Trip" clearInput required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="asal" type="text" placeholder="Tempat Memulai Perjalanan" clearInput required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="tujuan" type="text" placeholder="Tempat Mengakhiri Perjalanan" clearInput required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="budget" type="number" placeholder="Perkiraan budget untuk perorang" clearInput required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="kapasitas" type="number" placeholder="Kapasitas maksimum peserta" clearInput required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="sisa" type="number" placeholder="Jumlah orang yang diperlukan" clearInput required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="tanggal" type="date" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea [(ngModel)]="detail" placeholder="Isi Detai Perjalanan" clearInput rows="10"></ion-textarea>
+    </ion-item>
+  </div>
+  <br>
+  <div text-center>
+    <button ion-button (click)="kirim()">Kirim</button>
+  </div>
+
+</ion-content>

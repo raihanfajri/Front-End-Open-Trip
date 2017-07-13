@@ -15,7 +15,7 @@
     <ion-card-content >
       <ion-item>
       <ion-avatar item class="logo">
-      <img src="assets/img/dede.jpg" width="10%">
+      <img src="assets/img/dede.jpg">
     </ion-avatar>
       <ion-title>
         Raihan Fajri
@@ -35,6 +35,34 @@
         <ion-icon name="log-out" item-left></ion-icon>
           Logout          
     </ion-item>
-  </ion-list>
+  
 
+  <ion-card >
+      <img class col-60 src="assets/img/beach.jpg"/>
+      <ion-card-content>
+        <ion-card-title>
+          test
+        </ion-card-title>
+        <p>
+          <strong>Sisa :</strong> 1 Orang
+          <br>
+          <strong>Budget : </strong> 12 /Orang
+        </p>
+        <p>
+          Jepang adalah negara dengan banyak bunga.
+        </p>
+       
+      </ion-card-content>
+      <ion-grid>
+					<ion-row>
+					    <ion-col col-6>
+					    	<button full ion-button color="secondary" icon-left (click)="editPost()"><ion-icon name="md-create"></ion-icon>Ubah</button>
+					  	</ion-col>
+					    <ion-col col-6>
+					    	<button full ion-button color="danger" icon-left (click)="hapusPost()"><ion-icon name="md-trash"></ion-icon>Hapus</button>
+					    </ion-col>
+				    </ion-row>
+				</ion-grid>
+    </ion-card>
+</ion-list>
 </ion-content>
