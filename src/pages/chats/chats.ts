@@ -18,7 +18,7 @@ export class Chats {
 
   @ViewChild(Content) content: Content;
   messages:any = [];
-  socketHost: string = "http://localhost:3000";
+  socketHost: string;
   socket:any;
   chat:any;
   username:string;
@@ -36,6 +36,7 @@ export class Chats {
     user = JSON.parse(user);
     this.username = user[0]["Username"];
     this.idUser = user[0]["idUser"];
+    this.socketHost = this.dataService.getHost();
     this.socket = io.connect(this.socketHost);
     //connect to room
     this.socket.emit("room",room);
