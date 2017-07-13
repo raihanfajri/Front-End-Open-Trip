@@ -44,7 +44,7 @@ export class createTripPage {
    this.foto = base64Image;
   }, (err) => {
    console.log(err);
-   alert('Tidak bisa ambil gambar');
+   alert('Tidak bisa ambil gambar'+err);
   });
   }
   kirim(){
