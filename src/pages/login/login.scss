@@ -1,5 +1,10 @@
-page-login {
-  .login-content{
-    background-color:#d64b4b ;
-  }
+page-login .logo {
+  padding: 20px 0;
+  min-height: 200px;
+  text-align: center;
+}
+
+page-login .logo img {
+  padding-top: 40px;
+  max-width: 90%;
 }
