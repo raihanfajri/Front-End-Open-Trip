@@ -45,12 +45,15 @@ export class AllComment {
   getpluscomment(limit,offset){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    this.http.get(this.dataService.getHost()+"/users/getcomment/?id="+this.idtrip+"&limit="+limit+"&offset="+offset+"&order=desc", {headers: headers}).subscribe(data => {
-      let v = data.json();
-      v.sort(()=>1);
-      if(v.length > 0) this.comments = v.concat(this.comments);
-      else {
-        this.offset = this.offset-10;
+    this.http.get(this.dataService.getHost()+"/users/getcomment/?id="+this.idtrip+"&limit="+limit+"&offset="+offset+"&order=desc", {headers: headers})
+    .subscribe(data => {
+      if(data.text()){
+        let v = data.json();
+        v.sort(()=>1);
+        if(v.length > 0) this.comments = v.concat(this.comments);
+        else {
+          this.offset = this.offset-10;
+        }
       }
     },
       err => {
@@ -65,10 +68,13 @@ export class AllComment {
   getallcomment(id,limit){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    this.http.get(this.dataService.getHost()+"/users/getcomment/?id="+id+"&limit="+limit+"&order=desc&offset=0", {headers: headers}).subscribe(data => {
-      this.comments = data.json();
-      this.comments.sort(()=>1);
-      console.log(this.comments)
+    this.http.get(this.dataService.getHost()+"/users/getcomment/?id="+id+"&limit="+limit+"&order=desc&offset=0", {headers: headers})
+    .subscribe(data => {
+      if(data.text()){
+        this.comments = data.json();
+        this.comments.sort(()=>1);
+        console.log(this.comments)
+      }
     },
       err => {
         let alert = this.alertCtrl.create({
@@ -89,16 +95,19 @@ export class AllComment {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     console.log(input);
-    this.http.post(this.dataService.getHost()+"/users/comment/",input, {headers: headers}).subscribe(data => {
-      let times = data.json();
-      var newcomment = {
-        idUser:this.idUser,
-        user:{Username: this.username},
-        commentcontent: v.Text,
-        tanggal: times.time
-      };
-      this.comments.push(newcomment);
-      this.content.scrollToBottom();
+    this.http.post(this.dataService.getHost()+"/users/comment/",input, {headers: headers})
+    .subscribe(data => {
+      if(data.text()){
+        let times = data.json();
+        var newcomment = {
+          idUser:this.idUser,
+          user:{Username: this.username},
+          commentcontent: v.Text,
+          tanggal: times.time
+        };
+        this.comments.push(newcomment);
+        this.content.scrollToBottom();
+      }
     },
       err => {
         let alert = this.alertCtrl.create({

@@ -81,5 +81,5 @@
         </div>
       </ion-list>
     </div>
-    <button (click)="goToHome()"ion-button large full>Yuk Bergabung!</button>
+    <button *ngIf="content.tripadminid != idUser" (click)="requesttojoin()"ion-button large full>Yuk Bergabung!</button>
 </ion-content>

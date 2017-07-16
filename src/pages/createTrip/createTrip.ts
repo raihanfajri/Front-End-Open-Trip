@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import { Http,Headers } from '@angular/http';
-//import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
-//import { File } from '@ionic-native/file';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { DataService } from '../tabs/tabs';
 
@@ -57,9 +55,10 @@ export class createTripPage {
       loading.present();
       var headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      this.input = {tripname : this.tripname, idadmin : this.idadmin, asal : this.asal, tujuan: this.tujuan, tanggal : this.tanggal,kapasitas: this.kapasitas,sisa:this.sisa, budget:this.budget, detail: this.detail, foto: this.foto};
+      this.input = {tripname : this.tripname, tripadminid : this.idadmin, asal : this.asal, tujuan: this.tujuan, tanggal : this.tanggal,kapasitas: this.kapasitas,sisa:this.sisa, budget:this.budget, detail: this.detail, foto: this.foto};
       console.log(this.input);
-      this.http.post(this.dataService.getHost()+"/trip/createtrip", JSON.stringify(this.input), {headers: headers}).subscribe(data => {
+      this.http.post(this.dataService.getHost()+"/trip/createtrip", JSON.stringify(this.input), {headers: headers})
+      .subscribe(data => {
             loading.dismiss();
             let alert = this.alertCtrl.create({
               title: 'Your Trip Request Has Been Sent',
@@ -74,7 +73,12 @@ export class createTripPage {
           let alert = this.alertCtrl.create({
             title: 'Connection Error!',
             subTitle: 'Please Check Your Connection',
-            buttons: ['Dismiss']
+            buttons: [{
+              text:'Try Again',
+              handler:()=>{
+                this.kirim()
+              }
+            }]
           });
           alert.present();
         });

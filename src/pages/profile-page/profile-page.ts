@@ -41,18 +41,26 @@ export class ProfilePage {
       content: `<ion-spinner name="bubbles">Loading, Please wait..</ion-spinner>`
     });
     loading.present();
-    var headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      this.http.get(this.dataService.getHost()+"/trip/showtrip/?iduser="+this.iduser, {headers: headers}).subscribe(data => {
+    var header = new Headers();
+      header.append('Content-Type', 'application/json');
+      this.http.get(this.dataService.getHost()+"/trip/showtrip/?iduser="+this.iduser, {headers: header})
+      .subscribe(data => {
+        if(data.text()){
          this.trips = data.json()
          console.log(this.hozt)
+        }
          loading.dismiss()
       },
         err => {
           let alert = this.alertCtrl.create({
             title: 'Connection Error!',
             subTitle: 'Please Check Your Connection',
-            buttons: ['Dismiss']
+            buttons: [{
+              text:'Try Again',
+              handler:()=>{
+                this.show()
+              }
+            }]
           });
           loading.dismiss()
           alert.present();
@@ -61,18 +69,36 @@ export class ProfilePage {
   editPost(id){
     this.navCtrl.push(createTripPage,id)
   }
-  hapusPost(){
-    var headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      this.http.get(this.dataService.getHost()+"/trip/deletetrip/?idtrip="+this.val, {headers: headers}).subscribe(data => {
+  hapusPost(id){
+    let loading = this.loadingCtrl.create({
+      content: `<ion-spinner name="bubbles">Loading, Please wait..</ion-spinner>`
+    });
+    loading.present();
+    var header = new Headers();
+      header.append('Content-Type', 'application/json');
+      this.http.get(this.dataService.getHost()+"/trip/deletetrip/?idtrip="+id, {headers: header}).subscribe(data => {
+        var index = this.trips.findIndex((obj => obj.idtrip == id))
+        this.trips.splice(index,1);
+         let alert = this.alertCtrl.create({
+            title: 'Berhasil Terhapus',
+            subTitle: 'Trip anda berhasil dihapus',
+            buttons: ['Dismiss']
+          });
          console.log("terhapus!")
+         loading.dismiss()
       },
         err => {
           let alert = this.alertCtrl.create({
             title: 'Connection Error!',
             subTitle: 'Please Check Your Connection',
-            buttons: ['Dismiss']
+            buttons: [{
+              text:'Try Again',
+              handler:()=>{
+                this.hapusPost(id)
+              }
+            }]
           });
+          loading.dismiss()
           alert.present();
         });
   }

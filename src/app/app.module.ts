@@ -26,12 +26,12 @@ import { File } from '@ionic-native/file'
 import { Transfer } from '@ionic-native/transfer'
 import { Camera } from '@ionic-native/camera'
 export const firebaseConfig = {
-  apiKey: "AIzaSyDgxo6yYUizMM0bPH9CpTjrGQbhOh4wr4E",
-  authDomain: "opentrip-165706.firebaseapp.com",
-  databaseURL: "https://opentrip-165706.firebaseio.com",
-  projectId: "opentrip-165706",
-  storageBucket: "opentrip-165706.appspot.com",
-  messagingSenderId: "1050022502444"
+    apiKey: "AIzaSyDgxo6yYUizMM0bPH9CpTjrGQbhOh4wr4E",
+    authDomain: "opentrip-165706.firebaseapp.com",
+    databaseURL: "https://opentrip-165706.firebaseio.com",
+    projectId: "opentrip-165706",
+    storageBucket: "opentrip-165706.appspot.com",
+    messagingSenderId: "1050022502444"
 };
 
 

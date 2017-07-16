@@ -13,8 +13,9 @@ export class ContactPage {
   public idUser= 0;
   public groups:any =[];
   public dataService : any=new DataService;
+  public hozt:string;
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public http: Http, public loadingCtrl: LoadingController) {
-
+    this.hozt = this.dataService.getHost();
   }
   ionViewWillEnter(){
     var user = window.localStorage.getItem('user');
@@ -30,8 +31,10 @@ export class ContactPage {
   getallgroup(){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    this.http.get(this.dataService.getHost()+"/trip/grouplist/?idUser="+this.idUser, {headers: headers}).subscribe(data => {
-      this.groups = data.json();
+    this.http.get(this.dataService.getHost()+"/trip/grouplist/?idUser="+this.idUser, {headers: headers})
+    .subscribe(data => {
+      if(data.text())
+        this.groups = data.json();
     },
       err => {
         let alert = this.alertCtrl.create({
@@ -49,8 +52,10 @@ export class ContactPage {
     loading.present();
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    this.http.get(this.dataService.getHost()+"/users/contactlist/?idUser="+this.idUser, {headers: headers}).subscribe(data => {
-      this.contacts = data.json();
+    this.http.get(this.dataService.getHost()+"/users/contactlist/?idUser="+this.idUser, {headers: headers})
+    .subscribe(data => {
+      if(data.text())
+        this.contacts = data.json();
       loading.dismiss();
     },
       err => {

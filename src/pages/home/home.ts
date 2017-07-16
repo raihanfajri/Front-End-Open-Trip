@@ -5,7 +5,7 @@ import {PostDetail} from '../post-detail/post-detail';
 import { createTripPage } from '../createTrip/createTrip';
 import { Http,Headers } from '@angular/http';
 import { DataService } from '../tabs/tabs';
-
+import * as io from 'socket.io-client';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -22,9 +22,14 @@ export class HomePage {
   public search = false;
   public val: string;
   public dataService : any = new DataService;
+  public idUser=0
+  public socket:any
   constructor(public navCtrl: NavController,public http: Http, public loadingCtrl: LoadingController,public alertCtrl: AlertController) {
     this.host = this.dataService.getHost();
     this.getallitem(this.limit,this.offset);
+    var user = window.localStorage.getItem('user')
+    user = JSON.parse(user)
+    this.idUser = user[0]['idUser']
   }
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
@@ -36,6 +41,7 @@ export class HomePage {
       refresher.complete();
     }, 2000);
   }
+  
   doInfinite(infiniteScroll) {
     console.log('Begin async operation');
     setTimeout(() => {
@@ -47,16 +53,23 @@ export class HomePage {
     }, 500);
   }
   getplusitem(limit,offset){
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    this.http.get(this.dataService.getHost()+"/trip/semuatrip/?limit="+limit+"&offset="+offset, {headers: headers}).subscribe(data => {
-      this.items = this.items.concat(data.json());
+    var header = new Headers();
+    header.append('Content-Type', 'application/json');
+    this.http.get(this.dataService.getHost()+"/trip/semuatrip/?limit="+limit+"&offset="+offset, {headers: header})
+    .subscribe(data => {
+      if(data.text())
+        this.items = this.items.concat(data.json());
     },
       err => {
         let alert = this.alertCtrl.create({
           title: 'Connection Error!',
           subTitle: 'Please Check Your Connection',
-          buttons: ['Dismiss']
+          buttons: [{
+            text: 'Try Again',
+            handler: () => {
+              this.getplusitem(limit,offset)
+            }
+          }]
         });
         alert.present();
       });
@@ -66,10 +79,12 @@ export class HomePage {
       content: `<ion-spinner name="bubbles">Loading, Please wait..</ion-spinner>`
     });
     loading.present();
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    this.http.get(this.dataService.getHost()+"/trip/semuatrip/?limit="+limit+"&offset="+offset, {headers: headers}).subscribe(data => {
-       this.items = data.json();
+    var header = new Headers();
+    header.append('Content-Type', 'application/json');
+    this.http.get(this.dataService.getHost()+"/trip/semuatrip/?limit="+limit+"&offset="+offset, {headers: header})
+    .subscribe(data => {
+       if(data.text())
+        this.items = data.json();
        loading.dismiss();
     },
       err => {
@@ -77,23 +92,35 @@ export class HomePage {
         let alert = this.alertCtrl.create({
           title: 'Connection Error!',
           subTitle: 'Please Check Your Connection',
-          buttons: ['Dismiss']
+          buttons: [{
+            text: 'Try Again',
+            handler: () => {
+              this.getallitem(limit,offset)
+            }
+          }]
         });
         alert.present();
       });
   }
   getItemplus(limit,offset){
     if (this.val && this.val.trim() != '') {
-      var headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      this.http.get(this.dataService.getHost()+"/trip/searchtrip/?name="+this.val+"&limit="+limit+"&offset=0"+offset, {headers: headers}).subscribe(data => {
+      var header = new Headers();
+      header.append('Content-Type', 'application/json');
+      this.http.get(this.dataService.getHost()+"/trip/searchtrip/?name="+this.val+"&limit="+limit+"&offset=0"+offset, {headers: header})
+      .subscribe(data => {
+        if(data.text())
          this.items = this.items.concat(data.json());
       },
         err => {
           let alert = this.alertCtrl.create({
             title: 'Connection Error!',
             subTitle: 'Please Check Your Connection',
-            buttons: ['Dismiss']
+            buttons: [{
+              text: 'Try Again',
+              handler: () => {
+                this.getItemplus(limit,offset)
+              }
+            }]
           });
           alert.present();
         });
@@ -105,16 +132,23 @@ export class HomePage {
     if (this.val && this.val.trim() != '') {
       this.search = true;
       this.offset = 0;
-      var headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      this.http.get(this.dataService.getHost()+"/trip/searchtrip/?name="+this.val+"&limit=4&offset=0", {headers: headers}).subscribe(data => {
+      var header = new Headers();
+      header.append('Content-Type', 'application/json');
+      this.http.get(this.dataService.getHost()+"/trip/searchtrip/?name="+this.val+"&limit=4&offset=0", {headers: header})
+      .subscribe(data => {
+        if(data.text())
          this.items = data.json();
       },
         err => {
           let alert = this.alertCtrl.create({
             title: 'Connection Error!',
             subTitle: 'Please Check Your Connection',
-            buttons: ['Dismiss']
+            buttons: [{
+            text: 'Try Again',
+            handler: () => {
+              this.getItems(key)
+            }
+          }]
           });
           alert.present();
         });

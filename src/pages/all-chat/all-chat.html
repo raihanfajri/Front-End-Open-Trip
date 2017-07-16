@@ -16,11 +16,18 @@
 <ion-content>
 <ion-list>
   <div *ngFor="let item of chats">
-    <ion-item (click)="goToChat()">
+    <ion-item *ngIf="item.user" (click)="goToChat(item.id_chat)">
       <ion-avatar item-left>
         <img src="{{item.user.foto_profil}}">
       </ion-avatar>
       <h2 >{{item.user.Username | slice:0:30}}<span *ngIf="item.user.Username.length >= 30">...</span><span color="gray" style="font-size: 8px; float:right">{{item.tanggal}}</span></h2>
+      <p>{{item.chat}}</p>
+    </ion-item>
+    <ion-item *ngIf="item.trip" (click)="goToChat(item.id_chat)">
+      <ion-avatar item-left>
+        <img src="{{hozt}}/{{item.trip.foto}}">
+      </ion-avatar>
+      <h2 >{{item.trip.tripname | slice:0:30}}<span *ngIf="item.trip.tripname.length >= 30">...</span><span color="gray" style="font-size: 8px; float:right">{{item.tanggal}}</span></h2>
       <p>{{item.chat}}</p>
     </ion-item>
   </div>

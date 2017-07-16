@@ -28,7 +28,7 @@
     <div *ngFor="let group of groups">
       <ion-item (click)="goToGroupChat(group.trip.idtrip)">
         <ion-avatar item-left>
-          <img src="http://localhost:3000/{{group.trip.foto}}">
+          <img src="{{hozt}}/{{group.trip.foto}}">
         </ion-avatar>
         <h2>{{group.trip.tripname}}</h2>
       </ion-item>

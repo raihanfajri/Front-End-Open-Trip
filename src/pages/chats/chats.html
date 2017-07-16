@@ -1,8 +1,10 @@
 <ion-header>
   <ion-navbar color="secondary">
-    <ion-title>
-      <!-- <ion-input [(ngModel)]="username" placeholder="Username"></ion-input> -->
-      {{username}}
+    <ion-title *ngIf="istrip == 0">
+      {{pairuname}}
+    </ion-title>
+    <ion-title *ngIf="istrip == 1">
+      {{tripname}}
     </ion-title>
   </ion-navbar>
 </ion-header>

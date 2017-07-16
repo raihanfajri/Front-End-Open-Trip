@@ -1,6 +1,6 @@
 import { Component, NgZone, ViewChild } from '@angular/core';
 import * as io from 'socket.io-client';
-import { NavController, Content, NavParams } from 'ionic-angular';
+import { NavController, Content, NavParams, AlertController } from 'ionic-angular';
 import { Http,Headers } from '@angular/http';
 import { DataService } from '../tabs/tabs';
 /**
@@ -27,10 +27,13 @@ export class Chats {
   idUser =0;
   istrip =0;
   dataService :any = new DataService;
-  constructor(public navCtrl: NavController,public http: Http,public navParams: NavParams) {
+  tripname:string;
+  pairuname: string;
+  constructor(public navCtrl: NavController,public http: Http,public navParams: NavParams, public alertCtrl:AlertController) {
     this.roomid = this.navParams.get('idroom');
     this.istrip = this.navParams.get('istrip');
     var room ={roomid: this.roomid, istrip: this.istrip}
+    if(this.istrip == 1) this.gettripinfo();
     this.getrecentchat();
     var user = window.localStorage.getItem('user');
     user = JSON.parse(user);
@@ -49,25 +52,50 @@ export class Chats {
       });
     });
   }
+  ionViewWillEnter(){
+    
+  }
   //triggered when view dismissed
   ionViewWillLeave(){
     this.socket.emit("leave chat");
   }
+  gettripinfo(){
+    var idtrip = this.roomid.replace('trip','')
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    this.http.get(this.dataService.getHost()+"/trip/gettripinfo/?idtrip="+idtrip, {headers: headers})
+    .subscribe(data => {
+      if(data.text()){
+       let v = data.json();
+       this.tripname = v[0].tripname;
+      }
+    },err=>{
+      let alert = this.alertCtrl.create({
+          title: 'Connection Error!',
+          subTitle: 'Please Check Your Connection',
+          buttons: ['Dismiss']
+        });
+        alert.present();
+    });
+  }
   getrecentchat(){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    if(this.istrip == 0)
-    this.http.get(this.dataService.getHost()+"/room/getrecentchat/?idroom="+this.roomid, {headers: headers}).subscribe(data => {
+    this.http.get(this.dataService.getHost()+"/room/getrecentchat/?idroom="+this.roomid, {headers: headers})
+    .subscribe(data => {
+      if(data.text()){
        let v = data.json();
        this.messages = this.messages.concat(v);
+       this.pairuname = this.messages[0].user.Username
+      }
+    },err=>{
+      let alert = this.alertCtrl.create({
+          title: 'Connection Error!',
+          subTitle: 'Please Check Your Connection',
+          buttons: ['Dismiss']
+        });
+        alert.present();
     });
-    else {
-      var groupid = 'trip'+this.roomid;
-      this.http.get(this.dataService.getHost()+"/room/getrecentchat/?idroom="+groupid, {headers: headers}).subscribe(data => {
-         let v = data.json();
-         this.messages = this.messages.concat(v);
-      });
-    }
   }
   chatSend(v){
     let data = {

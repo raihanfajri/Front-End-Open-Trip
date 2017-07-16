@@ -5,6 +5,7 @@ import { Facebook } from '@ionic-native/facebook'
 import { AuthProviders, AuthMethods, AngularFire } from 'angularfire2';
 import { Http,Headers } from '@angular/http';
 import { DataService } from '../tabs/tabs';
+import * as firebase from 'firebase';
 /**
  * Generated class for the Login page.
  *
@@ -31,42 +32,48 @@ export class LoginPage {
       content: `<ion-spinner name="bubbles">Loading, Please wait..</ion-spinner>`
     });
     loading.present();
-  	this.af.auth.login({
-  		provider: AuthProviders.Facebook,
-  		method: AuthMethods.Popup
-  	}).then(function(response){
-      console.log("login dapet")
-  		let reg = {
-        Username: response.auth.displayName,
-  			email:response.auth.email,
-  			foto_profil:response.auth.photoURL
-  		};
-      var headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      self.http.post(self.dataService.getHost()+"/users/login", reg, {headers: headers}).subscribe(data => {
-         let v = data.json();
-         try{
-            JSON.stringify(v);
-            console.log("aman")
-          }
-          catch(err){
-            console.log("vnya circular")
-            console.log(err)                
-          }
-         window.localStorage.setItem('user',JSON.stringify(v));
-         console.log("user data changed ");
-      },err =>{
-        console.log("erorr kirim")
-        console.log(err);
-      });
-      window.localStorage.setItem('user',JSON.stringify(reg));
-      self.navCtrl.setRoot(TabsPage);
-      loading.dismiss()
-      //app.setRootpage(TabsPage);
-  	}).catch(function(error){
-      loading.dismiss()
-      console.log("error auth facebook")
-  		console.log(error);
-  	});
+    this.fb.login(['email'])
+        .then((_response) => {
+          console.log(_response) 
+          let creds = firebase.auth.FacebookAuthProvider.credential(_response.authResponse.accessToken)
+          let providerConfig = {
+            provider: AuthProviders.Facebook,
+            method: AuthMethods.OAuthToken
+          };
+          this.af.auth.login(creds,providerConfig)
+            .then((res) => {
+              console.log("Firebase success: " + JSON.stringify(res));
+              let reg = {
+                name: res.auth.displayName,
+  	 		        email:res.auth.email,
+  	 		        picture:res.auth.photoURL
+  	          };
+              var headers = new Headers();
+              headers.append('Content-Type', 'application/json');
+              self.http.post(self.dataService.getHost()+"/users/login", reg, {headers: headers})
+              .subscribe(data => {
+                if(data.text()){
+                  let v = data.json();
+                  window.localStorage.setItem('user',JSON.stringify(v));
+                  self.navCtrl.setRoot(TabsPage);
+                }
+                loading.dismiss()
+                console.log("user data changed ");
+              },err =>{
+                loading.dismiss()
+                console.log("erorr kirim")
+                console.log(err);
+              });
+            })
+            .catch((error) => {
+              loading.dismiss()
+              console.log("Firebase failure: " + JSON.stringify(error));
+            });
+        })
+        .catch((_error) => { 
+          loading.dismiss()
+          console.log(_error) 
+          console.log("error auth facebook")
+        })
   }
 }
